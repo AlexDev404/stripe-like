@@ -10,7 +10,7 @@ async function main(req: Request, res: Response) {
   const [jwt, salt] = auth.split(":");
   const { cardholder, card_number, expires, csc, amount } = req.body;
   try {
-    const r = await fetch("http://localhost:8888/payment", {
+    const r = await fetch("https://api.onelink.bz/payment", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +60,7 @@ async function main(req: Request, res: Response) {
     }
     // @remind Remove this second condition after bro implements something better
     const response = JSON.parse(body);
-    console.log(response);
+    // console.log(response);
     if (
       !response.msg ||
       (response.msg && response.msg !== "success") // Check for a numeric code
@@ -72,9 +72,9 @@ async function main(req: Request, res: Response) {
       //   : numeric_code;
 
       if (isNaN(parseInt(numeric_code))) numeric_code = null; // Remove the numeric code if it isn't an actual numeric value
-      let [http_code, error_string, error_code, error_type] = num_code(
+      const [http_code, error_string, error_code, error_type] = num_code(
         parseInt(numeric_code).toString()
-      ); // Pass the value back
+      ); // Pass the value back to get the mapping of what we should return
 
       return res.status(http_code as number).json({
         tracking_id: response.refnumber,
