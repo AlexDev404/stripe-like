@@ -105,5 +105,5 @@ You can self-host `stripe-like` on another server somewhere or locally by doing 
 3. Run the server
      1. `npm start`
 
-You can then start making requests.
+You can then start making requests on `localhost:8080`
 
