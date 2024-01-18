@@ -9,6 +9,18 @@ async function main(req: Request, res: Response) {
   // Split the auth string into the two parts separated by the colon ":" character
   const [jwt, salt] = auth.split(":");
   const { cardholder, card_number, expires, csc, amount } = req.body;
+
+  // Refuse to process payments below one dollar
+  if (
+    !amount ||
+    (amount && isNaN(parseInt(amount))) ||
+    (amount && amount < 1)
+  ) {
+    return res
+      .status(400)
+      .json(ErrorFormat("Invalid amount", 400, undefined, "api_error"));
+  }
+
   try {
     const r = await fetch("https://api.onelink.bz/payment", {
       method: "POST",
@@ -74,8 +86,7 @@ async function main(req: Request, res: Response) {
       if (isNaN(parseInt(numeric_code))) {
         // numeric_code = null;
         return res.status(403).json({
-          reference_id:
-            Math.random().toString(36).substring(2, 15), // Just random
+          reference_id: Math.random().toString(36).substring(2, 15), // Just random
           error: {
             numeric_code: null,
 
