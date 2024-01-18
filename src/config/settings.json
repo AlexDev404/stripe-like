@@ -1,0 +1,30 @@
+{
+  "trunk": {
+    "RS": "ALPHA",
+    "BRANCH": "dev"
+  },
+  "server": {
+    "port": 8080,
+    "domain": "cafe.ub.edu.bz",
+    "nickname": "Plattr",
+    "excludedBadWords": ["hell", "crap"],
+    "defaultReviewer": "6545572beff9c32417937c73",
+    "defaultTimeZone": "America/Belize"
+  },
+  "api": {
+    "API_SVERSION": "v1",
+    "API_VERSION": "v1.0.0",
+    "API_NAME": "StripeLike API",
+    "API_DESCRIPTION": "StripeLike API",
+    "API_HOST": "localhost:8080",
+    "API_BASEPATH": "/api/v1",
+    "API_SCHEMES": ["http"],
+    "API_CONSUMES": ["application/json"],
+    "API_PRODUCES": ["application/json"],
+    "API_SECURITY": [
+      {
+        "Bearer": []
+      }
+    ]
+  }
+}
