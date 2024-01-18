@@ -66,12 +66,28 @@ async function main(req: Request, res: Response) {
       (response.msg && response.msg !== "success") // Check for a numeric code
     ) {
       const error = response.msg ?? iwe_strings.Generic.EINTERNALERROR;
-      let numeric_code = JSON.parse(error.split(":")[0].trim());
+      let numeric_code = error.split(":")[0].trim();
       // const error_string = error.split(":")[1]
       //   ? error.split(":")[1].trim()
       //   : numeric_code;
 
-      if (isNaN(parseInt(numeric_code))) numeric_code = null; // Remove the numeric code if it isn't an actual numeric value
+      if (isNaN(parseInt(numeric_code))) {
+        // numeric_code = null;
+        return res.status(403).json({
+          tracking_id:
+            Math.random().toString(36).substring(2, 15), // Just random
+          error: {
+            numeric_code: null,
+
+            error_string: numeric_code, // Since, this is a string
+            error_code: "api_error",
+            error_type: "api_error",
+            http_code: 403,
+          },
+        });
+      } // Remove the numeric code if it isn't an actual numeric value
+      if (numeric_code != null) numeric_code = JSON.parse(numeric_code); // Parse the numeric code into a number
+
       const [http_code, error_string, error_code, error_type] = num_code(
         parseInt(numeric_code).toString()
       ); // Pass the value back to get the mapping of what we should return
