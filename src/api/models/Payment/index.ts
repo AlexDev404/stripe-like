@@ -10,7 +10,7 @@ async function main(req: Request, res: Response) {
   const [jwt, salt] = auth.split(":");
   const { cardholder, card_number, expires, csc, amount } = req.body;
   try {
-    const r = await fetch("https://api.onelink.bz/payment", {
+    const r = await fetch("http://localhost:8888/payment", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +45,7 @@ async function main(req: Request, res: Response) {
           );
       }
     }
-    const body = await r.text();
+    const body = await r.text(); // Can only consume one at a time
     if (!body || (body && body === "")) {
       return res
         .status(500)
@@ -59,8 +59,8 @@ async function main(req: Request, res: Response) {
         );
     }
     // @remind Remove this second condition after bro implements something better
-    const response = await r.json();
-    // console.log(response);
+    const response = JSON.parse(body);
+    console.log(response);
     if (
       !response.msg ||
       (response.msg && response.msg !== "success") // Check for a numeric code
@@ -72,8 +72,9 @@ async function main(req: Request, res: Response) {
       //   : numeric_code;
 
       if (isNaN(parseInt(numeric_code))) numeric_code = null; // Remove the numeric code if it isn't an actual numeric value
-      let [http_code, error_string, error_code, error_type] =
-        num_code(numeric_code);
+      let [http_code, error_string, error_code, error_type] = num_code(
+        parseInt(numeric_code).toString()
+      ); // Pass the value back
 
       return res.status(http_code as number).json({
         tracking_id: response.refnumber,
@@ -92,6 +93,7 @@ async function main(req: Request, res: Response) {
     // Return the refnumber as the tracking_id
     res.sendStatus(200).json({ tracking_id: response.refnumber });
   } catch (error) {
+    // throw error; // Debug
     return res
       .status(500)
       .json(
