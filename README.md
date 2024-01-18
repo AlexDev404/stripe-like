@@ -1,6 +1,6 @@
 # stripe-like
 
-"stripe-like" is a wrapper that serves as an intermediary layer between developers and the OneLink API. This wrapper simplifies the accessibility and processing of data returned from OneLink, providing a more user-friendly interface for seamless integration and interaction.
+"stripe-like" is a wrapper that serves as an intermediary layer between developers and the OneLink API. This wrapper simplifies the accessibility and processing of data returned from OneLink, providing a more user-friendly interface for easier integration and interaction.
 
 ## Interacting with the API
 
