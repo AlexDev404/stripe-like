@@ -6,7 +6,7 @@
 
 First obtain your token and salt from the [portal](https://portal.onelink.bz). 
 
-`stripe-like` is already hosted on [Fly](https://fly.io) as `https://stripe-like.fly.dev`. You can also [self-host](##Self-Hosting).
+`stripe-like` is already hosted on [Fly](https://fly.io) as `https://stripe-like.fly.dev`. You can also [self-host](#self-hosting).
 
 The API currently contains one route. This route is named `v1/charges`. Here's an example of how you'd go about using it using JavaScript's fetch:
 
