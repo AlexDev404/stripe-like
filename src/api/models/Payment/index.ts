@@ -74,7 +74,7 @@ async function main(req: Request, res: Response) {
       if (isNaN(parseInt(numeric_code))) {
         // numeric_code = null;
         return res.status(403).json({
-          tracking_id:
+          reference_id:
             Math.random().toString(36).substring(2, 15), // Just random
           error: {
             numeric_code: null,
@@ -93,7 +93,7 @@ async function main(req: Request, res: Response) {
       ); // Pass the value back to get the mapping of what we should return
 
       return res.status(http_code as number).json({
-        tracking_id: response.refnumber,
+        reference_id: response.refnumber,
         error: {
           numeric_code,
           doc_url: `https://stripe.com/docs/error-codes/${(
@@ -106,8 +106,8 @@ async function main(req: Request, res: Response) {
         },
       });
     }
-    // Return the refnumber as the tracking_id
-    res.sendStatus(200).json({ tracking_id: response.refnumber });
+    // Return the refnumber as the reference_id
+    res.sendStatus(200).json({ reference_id: response.refnumber });
   } catch (error) {
     // throw error; // Debug
     return res
