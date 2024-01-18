@@ -1,3 +1,3 @@
-# Dishout
+# stripe-like
 
-UB Cafeteria Ordering System
+[OneLink](https://onelink.bz) compatibility layer for easier accessibility/processing of data returned.
