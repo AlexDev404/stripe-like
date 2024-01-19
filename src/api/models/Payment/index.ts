@@ -70,7 +70,6 @@ async function main(req: Request, res: Response) {
           )
         );
     }
-    // @remind Remove this second condition after bro implements something better
     const response = JSON.parse(body);
     // console.log(response);
     if (
