@@ -20,7 +20,7 @@ const requestBody = {
 	"amount": "5.50" // Any amount less than 1 will be rejected and return a HTTP 400
 };
 
-const r = await fetch("https://stripe-like.fly.dev", {
+const r = await fetch("https://stripe-like.fly.dev/v1/charges", {
   method: "POST",
   headers: {
     "Authorization": `Bearer ${accessKey}`,
@@ -44,7 +44,7 @@ And in cURL:
 ONELINK_TOKEN="your_token"
 ONELINK_SALT="your_salt"
 
-curl -X POST https://stripe-like.fly.dev \
+curl -X POST https://stripe-like.fly.dev/v1/charges \
   -H "Authorization: Bearer $ONELINK_TOKEN:$ONELINK_SALT" \
   -H "Content-Type: application/json" \
   -d '{
