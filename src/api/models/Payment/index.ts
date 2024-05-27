@@ -18,7 +18,7 @@ async function main(req: Request, res: Response) {
   ) {
     return res
       .status(400)
-      .json(ErrorFormat("Invalid amount", 400, undefined, "api_error"));
+      .json(ErrorFormat("Your transaction must be greater than $4.99", 400, undefined, "api_error"));
   }
 
   try {
