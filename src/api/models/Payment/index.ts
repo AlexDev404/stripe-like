@@ -10,11 +10,11 @@ async function main(req: Request, res: Response) {
   const [jwt, salt] = auth.split(":");
   const { cardholder, card_number, expires, csc, amount } = req.body;
 
-  // Refuse to process payments below one dollar
+  // Refuse to process payments below five dollars
   if (
     !amount ||
     (amount && isNaN(parseInt(amount))) ||
-    (amount && amount < 1)
+    (amount && amount < 5)
   ) {
     return res
       .status(400)
